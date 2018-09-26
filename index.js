@@ -15,6 +15,10 @@ exports.default = function (component, reducers) {
 
   if (actions.length === 0) {
     throw new Error("actions is Empty");
+  } else if (actions.find(function (o) {
+    return Object.prototype.toString.call(o) !== "[object Object]";
+  })) {
+    throw new Error("actions must be Object");
   }
 
   var mapDispatchProps = function mapDispatchProps(dispatch) {
@@ -39,7 +43,7 @@ exports.default = function (component, reducers) {
 
     return (0, _reactRedux.connect)(mapStateProps, mapDispatchProps)(component);
   } else {
-    throw new Error("reducers is Array");
+    throw new Error("reducers must be Array");
   }
 };
 
